@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.8" group="system" method="upgrade">
+	<name>PLG_SYSTEM_PBCOOKIENOTE</name>
+	<creationDate>03/2018</creationDate>
+	<author>Sebastian Brümmer</author>
+	<authorEmail>sebastian@produktivbuero.de</authorEmail>
+	<authorUrl>https://www.produktivbuero.de</authorUrl>
+	<copyright>Copyright (C) 2018 *produktivbüro . All rights reserved</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<version>0.9.0</version>
+  <description>PLG_SYSTEM_PBCOOKIENOTE_XML_DESCRIPTION</description>
+
+  <!-- Plugin files -->
+  <files>
+    <filename plugin="pbcookienote">pbcookienote.php</filename>
+    <folder>language</folder>
+    <folder>tmpl</folder>
+  </files>
+
+	<!-- Language files -->
+	<languages folder="language">
+    <language tag="de-DE">de-DE/de-DE.plg_system_pbcookienote.ini</language>
+    <language tag="de-DE">de-DE/de-DE.plg_system_pbcookienote.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.sys.ini</language>
+	</languages>
+
+  <!-- Media files -->
+  <media folder="media" destination="plg_system_pbcookienote">
+  </media>
+
+	<!-- Config parameter -->
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+
+        <field 
+            name="link" 
+            type="radio" 
+            default="0" 
+            label="PLG_SYSTEM_PBCOOKIENOTE_LINK_LABEL" 
+            description="PLG_SYSTEM_PBCOOKIENOTE_LINK_DESCRIPTION" 
+            class="btn-group btn-group-yesno">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+
+        <field
+          name="itemid"
+          type="menuitem"
+          label="PLG_SYSTEM_PBCOOKIENOTE_ITEMID_LABEL"
+          description="PLG_SYSTEM_PBCOOKIENOTE_ITENID_DESCRIPTION"
+          published="1" />
+					
+				<field
+					name="backgroundcolor"
+					type="color"
+					default="#333"
+					label="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_LABEL"
+					description="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_DESCRIPTION" />
+
+				<field
+					name="buttoncolor"
+					type="color"
+					default="#0bf"
+					label="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_LABEL"
+					description="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_DESCRIPTION" />
+
+				<field
+					name="textcolor"
+					type="color"
+					default="#eee"
+					label="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_LABEL"
+					description="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_DESCRIPTION" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
