@@ -57,10 +57,9 @@ class plgSystemPbCookieNote extends CMSPlugin
 
     // plugin parameters
     $itemid = $this->params->get('itemid');
-    $link = $this->params->get('link', '1');
     $position = $this->params->get('position', 'bottom');
 
-    $href = $link ? JRoute::_("index.php?Itemid={$itemid}") : '';
+    $href = $itemid ? JRoute::_("index.php?Itemid={$itemid}") : '';
     
     // view
     $path = JPluginHelper::getLayoutPath($this->_type, $this->_name);
@@ -183,7 +182,7 @@ class plgSystemPbCookieNote extends CMSPlugin
 
             document.getElementById("pb-button").onclick = function () {
               buttonClick();
-              
+
               if (window.jQuery) {
                 jQuery("body").css("padding-'.$position.'", "");
               }
