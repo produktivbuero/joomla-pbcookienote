@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.8" group="system" method="upgrade">
-	<name>PLG_SYSTEM_PBCOOKIENOTE</name>
-	<creationDate>03/2018</creationDate>
-	<author>Sebastian Brümmer</author>
-	<authorEmail>sebastian@produktivbuero.de</authorEmail>
-	<authorUrl>https://www.produktivbuero.de</authorUrl>
-	<copyright>Copyright (C) 2018 *produktivbüro . All rights reserved</copyright>
-	<license>GNU General Public License version 2 or later</license>
-	<version>0.9.0</version>
+  <name>PLG_SYSTEM_PBCOOKIENOTE</name>
+  <creationDate>03/2018</creationDate>
+  <author>Sebastian Brümmer</author>
+  <authorEmail>sebastian@produktivbuero.de</authorEmail>
+  <authorUrl>https://www.produktivbuero.de</authorUrl>
+  <copyright>Copyright (C) 2018 *produktivbüro . All rights reserved</copyright>
+  <license>GNU General Public License version 2 or later</license>
+  <version>0.9.0</version>
   <description>PLG_SYSTEM_PBCOOKIENOTE_XML_DESCRIPTION</description>
 
   <!-- Plugin files -->
@@ -17,21 +17,21 @@
     <folder>tmpl</folder>
   </files>
 
-	<!-- Language files -->
-	<languages folder="language">
+  <!-- Language files -->
+  <languages folder="language">
     <language tag="de-DE">de-DE/de-DE.plg_system_pbcookienote.ini</language>
     <language tag="de-DE">de-DE/de-DE.plg_system_pbcookienote.sys.ini</language>
-		<language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.ini</language>
-		<language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.sys.ini</language>
-	</languages>
+    <language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.ini</language>
+    <language tag="en-GB">en-GB/en-GB.plg_system_pbcookienote.sys.ini</language>
+  </languages>
 
   <!-- Media files -->
   <media folder="media" destination="plg_system_pbcookienote">
   </media>
 
-	<!-- Config parameter -->
-	<config>
-		<fields name="params">
+  <!-- Config parameter -->
+  <config>
+    <fields name="params">
       <fieldset name="basic"
         addfieldpath="/administrator/components/com_menus/models/fields"
       >
@@ -58,28 +58,37 @@
           >
           <option value=""></option>
         </field>
-					
-				<field
-					name="backgroundcolor"
-					type="color"
-					default="#333"
-					label="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_LABEL"
-					description="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_DESCRIPTION" />
 
-				<field
-					name="buttoncolor"
-					type="color"
-					default="#0bf"
-					label="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_LABEL"
-					description="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_DESCRIPTION" />
+        <field type="spacer" hr="true" />
 
-				<field
-					name="textcolor"
-					type="color"
-					default="#eee"
-					label="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_LABEL"
-					description="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_DESCRIPTION" />
-			</fieldset>
-		</fields>
-	</config>
+        <field name="position" type="radio" default="bottom" label="PLG_SYSTEM_PBCOOKIENOTE_POSITION_LABEL" description="PLG_SYSTEM_PBCOOKIENOTE_POSITION_DESCRIPTION" class="btn-group">
+          <option value="bottom">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_BOTTOM</option>
+          <option value="top">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_TOP</option>
+          <option value="left">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_LEFT</option>
+          <option value="right">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_RIGHT</option>
+        </field>
+          
+        <field
+          name="backgroundcolor"
+          type="color"
+          default="#333"
+          label="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_LABEL"
+          description="PLG_SYSTEM_PBCOOKIENOTE_BACKGROUND_COLOR_DESCRIPTION" />
+
+        <field
+          name="buttoncolor"
+          type="color"
+          default="#0bf"
+          label="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_LABEL"
+          description="PLG_SYSTEM_PBCOOKIENOTE_BUTTON_COLOR_DESCRIPTION" />
+
+        <field
+          name="textcolor"
+          type="color"
+          default="#eee"
+          label="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_LABEL"
+          description="PLG_SYSTEM_PBCOOKIENOTE_TEXT_COLOR_DESCRIPTION" />
+      </fieldset>
+    </fields>
+  </config>
 </extension>
