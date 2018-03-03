@@ -7,7 +7,7 @@
   <authorUrl>https://www.produktivbuero.de</authorUrl>
   <copyright>Copyright (C) 2018 *produktivbüro . All rights reserved</copyright>
   <license>GNU General Public License version 2 or later</license>
-  <version>1.0.0</version>
+  <version>0.9.0</version>
   <description>PLG_SYSTEM_PBCOOKIENOTE_XML_DESCRIPTION</description>
 
   <!-- Plugin files -->
@@ -97,4 +97,9 @@
       </fieldset>
     </fields>
   </config>
+
+  <!-- Updates -->
+  <updateservers>
+    <server type="extension" priority="1" name="PLG_SYSTEM_PBCOOKIENOTE - Updates">https://raw.githubusercontent.com/produktivbuero/joomla-pbcookienote/master/updates.xml</server>
+  </updateservers>
 </extension>
