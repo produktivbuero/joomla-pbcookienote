@@ -32,7 +32,9 @@
 	<!-- Config parameter -->
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+      <fieldset name="basic"
+        addfieldpath="/administrator/components/com_menus/models/fields"
+      >
 
         <field 
             name="link" 
@@ -47,10 +49,15 @@
 
         <field
           name="itemid"
-          type="menuitem"
+          type="modal_menu"
           label="PLG_SYSTEM_PBCOOKIENOTE_ITEMID_LABEL"
           description="PLG_SYSTEM_PBCOOKIENOTE_ITENID_DESCRIPTION"
-          published="1" />
+          disable="separator,alias,heading,url"
+          select="true"
+          clear="true"
+          >
+          <option value=""></option>
+        </field>
 					
 				<field
 					name="backgroundcolor"
@@ -75,9 +82,4 @@
 			</fieldset>
 		</fields>
 	</config>
-
-  <!-- Update server -->
-  <updateservers>
-    <server type="extension" priority="1" name="Cookie Note Update">https://raw.githubusercontent.com/sbruemmer/joomla-pbcookienote/master/updates.xml</server>
-  </updateservers>
 </extension>
