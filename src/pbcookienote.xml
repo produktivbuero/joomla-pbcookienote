@@ -61,6 +61,18 @@
             <option value="left">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_LEFT</option>
             <option value="right">PLG_SYSTEM_PBCOOKIENOTE_POSITION_VALUE_RIGHT</option>
         </field>
+
+        <field 
+          name="layout" 
+          type="radio" 
+          default="default" 
+          label="PLG_SYSTEM_PBCOOKIENOTE_LAYOUT_LABEL" 
+          description="PLG_SYSTEM_PBCOOKIENOTE_LAYOUT_DESCRIPTION" 
+          class="btn-group">
+            <option value="default">JDEFAULT</option>
+            <option value="condensed">PLG_SYSTEM_PBCOOKIENOTE_LAYOUT_VALUE_CONDENSED</option>
+            <option value="simple">PLG_SYSTEM_PBCOOKIENOTE_LAYOUT_VALUE_SIMPLE</option>
+        </field>
           
         <field
           name="backgroundcolor"

@@ -98,6 +98,7 @@ class plgSystemPbCookieNote extends CMSPlugin
     
     // plugin parameters
     $position = $this->params->get('position', 'bottom');
+    $layout = $this->params->get('layout', 'default');
     $backgroundcolor = $this->params->get('backgroundcolor');
     $buttoncolor = $this->params->get('buttoncolor');
     $textcolor = $this->params->get('textcolor');
@@ -112,7 +113,7 @@ class plgSystemPbCookieNote extends CMSPlugin
       ';
 
     // add styles depending on position
-    switch ($position) {
+    switch ( $position ) {
       case 'top':
         $style .= '
             #pb-cookies { left: 0; right: 0; top: 0; display: flex; align-items: center; }
@@ -139,6 +140,30 @@ class plgSystemPbCookieNote extends CMSPlugin
       default:
         $style .= '
           #pb-cookies { left: 0; right: 0; bottom: 0; display: flex; align-items: center; }
+          ';
+        break;
+    }
+
+    switch ( $layout ) {
+      case 'condensed':
+        if ( $position == 'top' || $position == 'bottom' ) {
+          $style .= '
+              #pb-cookies .pb-text { padding-top: 0; padding-bottom: 0; }
+              #pb-cookies .pb-dismiss { padding-top: 0; padding-bottom: 0; padding-right: 0; }
+              #pb-cookies .pb-dismiss button { border-radius: 0; }
+            ';
+         }
+        elseif ( $position == 'left' || $position == 'right' ) {
+          $style .= '
+              #pb-cookies .pb-dismiss { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+              #pb-cookies .pb-dismiss button { border-radius: 0; }
+            ';
+         }
+        break;
+      
+      case 'simple':
+        $style .= '
+            #pb-cookies .pb-dismiss button { color: '.$buttoncolor.'; background: transparent; border: 2px solid '.$buttoncolor.'; }
           ';
         break;
     }
@@ -193,6 +218,7 @@ class plgSystemPbCookieNote extends CMSPlugin
           });
         ';
     }
+
     $doc->addScriptDeclaration( $script );
   }
 }
