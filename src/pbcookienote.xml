@@ -100,6 +100,6 @@
 
   <!-- Updates -->
   <updateservers>
-    <server type="extension" priority="1" name="PLG_SYSTEM_PBCOOKIENOTE - Updates">https://raw.githubusercontent.com/produktivbuero/joomla-pbcookienote/master/updates.xml</server>
+    <server type="extension" priority="1" name="COOKIE NOTE - Updates">https://raw.githubusercontent.com/produktivbuero/joomla-pbcookienote/master/updates.xml</server>
   </updateservers>
 </extension>

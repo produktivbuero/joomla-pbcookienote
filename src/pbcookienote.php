@@ -38,7 +38,8 @@ class plgSystemPbCookieNote extends CMSPlugin
   protected $autoloadLanguage = true;
 
   /**
-   * onAfterRender.
+   * This event is triggered after the framework has rendered the application.
+   * When this event is triggered the output of the application is available in the response buffer.
    *
    * @return  void.
    *
@@ -81,7 +82,7 @@ class plgSystemPbCookieNote extends CMSPlugin
   }
 
   /**
-   * onBeforeCompileHead.
+   * This event is triggered before the framework creates the head section of the Document.
    *
    * @return  void.
    *
@@ -139,11 +140,12 @@ class plgSystemPbCookieNote extends CMSPlugin
       case 'bottom':
       default:
         $style .= '
-          #pb-cookies { left: 0; right: 0; bottom: 0; display: flex; align-items: center; }
+            #pb-cookies { left: 0; right: 0; bottom: 0; display: flex; align-items: center; }
           ';
         break;
     }
 
+    // add styles depending on layout
     switch ( $layout ) {
       case 'condensed':
         if ( $position == 'top' || $position == 'bottom' ) {
