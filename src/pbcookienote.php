@@ -37,104 +37,207 @@ class plgSystemPbCookieNote extends CMSPlugin
    */
   protected $autoloadLanguage = true;
 
-	/**
-	 * onAfterRender.
-	 *
-	 * @return  void.
-	 *
-	 * @since   1.0
-	 */
-	public function onAfterRender()
-	{
+  /**
+   * This function is called on initialization.
+   *
+   * @return  void.
+   *
+   * @since   1.0
+   */
 
-    if ($this->app->getName() != 'site' || isset($_COOKIE['pb-cookie-note'])) {
+  public function __construct(&$subject, $config = array())
+  {
+
+    parent::__construct($subject, $config);
+
+    $this->cookienote = array();
+    $this->cookienote['cookie'] = 'pb-cookie-note';
+
+    // plugin parameters
+    $params = new JRegistry($config['params']);
+    
+    $this->cookienote['itemid'] = $params->get('itemid');
+    $this->cookienote['position'] = $this->params->get('position', 'bottom');
+    $this->cookienote['layout'] = $this->params->get('layout', 'default');
+    $this->cookienote['backgroundcolor'] = $params->get('backgroundcolor', '');
+    $this->cookienote['buttoncolor'] = $params->get('buttoncolor', '');
+    $this->cookienote['textcolor'] = $params->get('textcolor', '');
+
+  }
+
+  /**
+   * onAfterRender.
+   *
+   * @return  void.
+   *
+   * @since   1.0
+   */
+  public function onAfterRender()
+  {
+
+    $cookie = $this->cookienote['cookie'];
+    
+    if ($this->app->getName() != 'site' || isset($_COOKIE[$cookie])) {
         return true;
     }
 
     // load language from the backend
     $lang = JFactory::getLanguage();
-		$lang->load('plg_'.$this->_type.'_'.$this->_name, JPATH_ADMINISTRATOR);
+    $lang->load('plg_'.$this->_type.'_'.$this->_name, JPATH_ADMINISTRATOR);
 
-		// plugin parameters
-		$itemid = $this->params->get('itemid');
-		$link = $this->params->get('link', '1');
-
-    $href = $link ? JRoute::_("index.php?Itemid={$itemid}") : '';
+    $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$this->cookienote['itemid']}") : '';
     
     // view
     $path = JPluginHelper::getLayoutPath($this->_type, $this->_name);
-		ob_start();
-		include $path;
-		$insert = ob_get_clean();
+    ob_start();
+    include $path;
+    $insert = ob_get_clean();
 
     $buffer = $this->app->getBody();
-    $buffer = str_ireplace('</body>', $insert.'</body>', $buffer);
+    if ( $this->cookienote['position'] == 'top' ) {
+      $buffer = preg_replace('/<body([^>]*)>/i', '<body$1>'.$insert, $buffer);
+    }
+    else {
+      $buffer = str_ireplace('</body>', $insert.'</body>', $buffer);
+    }
 
     $this->app->setBody($buffer);
+  }
 
-    return true;
-	}
+  /**
+   * onBeforeCompileHead.
+   *
+   * @return  void.
+   *
+   * @since   1.0
+   */
+  public function onBeforeCompileHead()
+  {
 
-	/**
-	 * onBeforeCompileHead.
-	 *
-	 * @return  void.
-	 *
-	 * @since   1.0
-	 */
-	public function onBeforeCompileHead()
-	{
-
-		if ($this->app->getName() != 'site' || isset($_COOKIE['pb-cookie-note'])) {
+    $cookie = $this->cookienote['cookie'];
+    
+    if ($this->app->getName() != 'site' || isset($_COOKIE[$cookie])) {
         return true;
     }
 
     $doc = JFactory::getDocument();
-		
-		// plugin parameters
-		$backgroundcolor = $this->params->get('backgroundcolor', '');
-		$buttoncolor = $this->params->get('buttoncolor', '');
-		$textcolor = $this->params->get('textcolor', '');
 
-		// styles
+    // basic styles
     $style = '
-	    	#pb-cookies { color: '.$textcolor.'; position: fixed; z-index: 9999; left: 0; right: 0; bottom: 0; display: flex; align-items: center; background: '.$backgroundcolor.'; }
-	      #pb-cookies a { color: '.$textcolor.'; text-decoration: underline; }
-	      #pb-cookies .pb-text { padding: 1rem; flex: 1; }
-	      #pb-cookies .pb-dismiss { padding: 1rem; }
-	      #pb-cookies .pb-dismiss button { color: '.$textcolor.'; padding: 0.5rem 1rem; background: '.$buttoncolor.'; border: 0; border-radius: 3px; }
-	    ';
+        #pb-cookies { position: fixed; z-index: 9999; color: '.$this->cookienote['textcolor'].'; background: '.$this->cookienote['backgroundcolor'].'; }
+        #pb-cookies a { color: '.$this->cookienote['textcolor'].'; text-decoration: underline; }
+        #pb-cookies .pb-text { padding: 1rem; flex: 1; }
+        #pb-cookies .pb-dismiss { padding: 1rem; }
+        #pb-cookies .pb-dismiss button { color: '.$this->cookienote['textcolor'].'; padding: 0.5rem 1rem; background: '.$this->cookienote['buttoncolor'].'; border: 0; border-radius: 3px; }
+      ';
+
+    // add styles depending on position
+    switch ( $this->cookienote['position'] ) {
+      case 'top':
+        $style .= '
+            #pb-cookies { left: 0; right: 0; top: 0; display: flex; align-items: center; }
+          ';
+        break;
+      
+      case 'left':
+        $style .= '
+            #pb-cookies { left: 0; bottom: 0; max-width: 25rem; }
+            #pb-cookies .pb-dismiss { padding-top: 0; }
+            #pb-cookies .pb-dismiss button { width: 100%; }
+          ';
+        break;
+
+      case 'right':
+        $style .= '
+            #pb-cookies { right: 0; bottom: 0; max-width: 25rem; }
+            #pb-cookies .pb-dismiss { padding-top: 0; }
+            #pb-cookies .pb-dismiss button { width: 100%; }
+          ';
+        break;
+      
+      case 'bottom':
+      default:
+        $style .= '
+          #pb-cookies { left: 0; right: 0; bottom: 0; display: flex; align-items: center; }
+          ';
+        break;
+    }
+
+    switch ( $this->cookienote['layout'] ) {
+      case 'condensed':
+        if ( $this->cookienote['position'] == 'top' || $this->cookienote['position'] == 'bottom' ) {
+          $style .= '
+              #pb-cookies .pb-text { padding-top: 0; padding-bottom: 0; }
+              #pb-cookies .pb-dismiss { padding-top: 0; padding-bottom: 0; padding-right: 0; }
+              #pb-cookies .pb-dismiss button { border-radius: 0; }
+            ';
+         }
+        elseif ( $this->cookienote['position'] == 'left' || $this->cookienote['position'] == 'right' ) {
+          $style .= '
+              #pb-cookies .pb-dismiss { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+              #pb-cookies .pb-dismiss button { border-radius: 0; }
+            ';
+         }
+        break;
+      
+      case 'simple':
+        $style .= '
+            #pb-cookies .pb-dismiss button { color: '.$this->cookienote['buttoncolor'].'; background: transparent; border: 2px solid '.$this->cookienote['buttoncolor'].'; }
+          ';
+        break;
+    }
     $doc->addStyleDeclaration( $style );
 
-		// scripts
+    // basic scripts
     $script = '
-				window.addEventListener("load", function () {
-					if (window.jQuery) { 
-				  	var height = jQuery("#pb-cookies").outerHeight();
-				  	jQuery("body").css("padding-bottom", height);
-				  }
-				  else {
-			      var height = document.getElementById("pb-cookies").offsetHeight;
-			      document.body.style.paddingBottom = height + "px";
-				  }
+        window.addEventListener("load", function () {
+          document.getElementById("pb-button").onclick = function () {
+            buttonClick();
+          }
+        });
 
-				  document.getElementById("pb-button").onclick = function () {
-				  	var d = new Date();
-				    d.setTime(d.getTime() + (365*24*60*60*1000)); /* 365 days */
-				    var expires = "expires="+ d.toUTCString();
-				    document.cookie = "pb-cookie-note=true;" + expires + ";path=/";
+        function buttonClick () {
+            var d = new Date();
+            d.setTime(d.getTime() + (365*24*60*60*1000)); /* 365 days */
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = "'.$cookie.'=true;" + expires + ";path=/";
 
-				    if (window.jQuery) { 
-				    	jQuery("#pb-cookies").fadeOut("slow");
-				    	jQuery("body").css("padding-bottom", "");
-				    }
-				    else {
-				      document.getElementById("pb-cookies").style.display = "none";
-				      document.body.style.removeProperty("padding-bottom");
-				    }
-				  }
-				});
-    	';
-    	$doc->addScriptDeclaration( $script );
-	}
+            if (window.jQuery) { 
+              jQuery("#pb-cookies").fadeOut("slow");
+            }
+            else {
+              document.getElementById("pb-cookies").style.display = "none";
+            }
+        }
+      ';
+    
+    // add scripts depending on position
+    if ( $this->cookienote['position'] == 'top' || $this->cookienote['position'] == 'bottom' ) { 
+      $script .= '
+          window.addEventListener("load", function () {
+            if (window.jQuery) { 
+              var height = jQuery("#pb-cookies").outerHeight();
+              jQuery("body").css("padding-'.$this->cookienote['position'].'", height);
+            }
+            else {
+              var height = document.getElementById("pb-cookies").offsetHeight;
+              document.body.style.padding'.ucfirst($this->cookienote['position']).' = height + "px";
+            }
+
+            document.getElementById("pb-button").onclick = function () {
+              buttonClick();
+
+              if (window.jQuery) {
+                jQuery("body").css("padding-'.$this->cookienote['position'].'", "");
+              }
+              else {
+                document.body.style.removeProperty("padding-'.$this->cookienote['position'].'");
+              }
+            }
+          });
+        ';
+    }
+
+    $doc->addScriptDeclaration( $script );
+  }
 }
