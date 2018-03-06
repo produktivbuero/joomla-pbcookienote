@@ -47,7 +47,7 @@ class plgSystemPbCookieNote extends CMSPlugin
 	public function onAfterRender()
 	{
 
-    if ($this->app->getName() != 'site' || isset($_COOKIE['pbCookieNote'])) {
+    if ($this->app->getName() != 'site' || isset($_COOKIE['pb-cookie-note'])) {
         return true;
     }
 
@@ -85,7 +85,7 @@ class plgSystemPbCookieNote extends CMSPlugin
 	public function onBeforeCompileHead()
 	{
 
-		if ($this->app->getName() != 'site' || isset($_COOKIE['pbCookieNote'])) {
+		if ($this->app->getName() != 'site' || isset($_COOKIE['pb-cookie-note'])) {
         return true;
     }
 
@@ -122,7 +122,7 @@ class plgSystemPbCookieNote extends CMSPlugin
 				  	var d = new Date();
 				    d.setTime(d.getTime() + (365*24*60*60*1000)); /* 365 days */
 				    var expires = "expires="+ d.toUTCString();
-				    document.cookie = "pbCookieNote=true;" + expires + ";path=/";
+				    document.cookie = "pb-cookie-note=true;" + expires + ";path=/";
 
 				    if (window.jQuery) { 
 				    	jQuery("#pb-cookies").fadeOut("slow");
