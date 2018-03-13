@@ -85,8 +85,21 @@ class plgSystemPbCookieNote extends CMSPlugin
     $lang = JFactory::getLanguage();
     $lang->load('plg_'.$this->_type.'_'.$this->_name, JPATH_ADMINISTRATOR);
 
-    $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$this->cookienote['itemid']}") : '';
+
+    // load localized associations
+    $multilang = JLanguageMultilang::isEnabled();
+
+    var_dump(MenusHelper::getAssociations($this->cookienote['itemid']));
     
+    if ( $multilang ) {
+      $associations = MenusHelper::getAssociations($this->cookienote['itemid']);
+      $langtag = $lang->getTag();
+      $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$associations[$langtag]}") : '';
+    }
+    else {
+      $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$this->cookienote['itemid']}") : '';
+    }
+
     // view
     $path = JPluginHelper::getLayoutPath($this->_type, $this->_name);
     ob_start();
