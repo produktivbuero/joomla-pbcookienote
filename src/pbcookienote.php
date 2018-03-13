@@ -88,8 +88,6 @@ class plgSystemPbCookieNote extends CMSPlugin
 
     // load localized associations
     $multilang = JLanguageMultilang::isEnabled();
-
-    var_dump(MenusHelper::getAssociations($this->cookienote['itemid']));
     
     if ( $multilang ) {
       $associations = MenusHelper::getAssociations($this->cookienote['itemid']);
