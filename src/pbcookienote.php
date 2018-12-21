@@ -138,7 +138,7 @@ class plgSystemPbCookieNote extends CMSPlugin
     $style = '
         #pb-cookies { position: fixed; z-index: 9999; color: '.$this->cookienote['textcolor'].'; background: '.$this->cookienote['backgroundcolor'].'; }
         #pb-cookies a { color: '.$this->cookienote['textcolor'].'; text-decoration: underline; }
-        #pb-cookies .pb-text { padding: 1rem; flex: 1; }
+        #pb-cookies .pb-text { padding: 1rem; text-align: left; flex: 1; }
         #pb-cookies .pb-dismiss { padding: 1rem; }
         #pb-cookies .pb-dismiss button { color: '.$this->cookienote['textcolor'].'; padding: 0.5rem 1rem; background: '.$this->cookienote['buttoncolor'].'; border: 0; border-radius: 3px; cursor: pointer; }
       ';
