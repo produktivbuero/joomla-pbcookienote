@@ -87,16 +87,13 @@ class plgSystemPbCookieNote extends CMSPlugin
 
 
     // link (load localized associations)
-    $href = '';
+    $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$this->cookienote['itemid']}") : '';
     $multilang = JLanguageMultilang::isEnabled();
     
     if ( $multilang ) {
       $associations = MenusHelper::getAssociations($this->cookienote['itemid']);
       $langtag = $lang->getTag();
       if ( array_key_exists($langtag, $associations) ) $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$associations[$langtag]}") : '';
-    }
-    else {
-      $href = $this->cookienote['itemid'] ? JRoute::_("index.php?Itemid={$this->cookienote['itemid']}") : '';
     }
 
     // view
