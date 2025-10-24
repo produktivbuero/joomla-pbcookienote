@@ -13,12 +13,12 @@ $lang = JFactory::getLanguage();
 
 ?>
 
-<div id="pb-cookies">
+<dialog id="pb-cookies" open>
   <div class="pb-text">
     <?php echo JText::_('PLG_SYSTEM_PBCOOKIENOTE_MESSAGE'); ?>
     <?php if ( $href) : ?><a href="<?php echo $href; ?>"><?php echo JText::_('PLG_SYSTEM_PBCOOKIENOTE_LINK'); ?></a><?php endif; ?>
   </div>
-  <div class="pb-dismiss">
+  <form method="dialog" class="pb-dismiss">
     <button id="pb-button"><?php echo JText::_('PLG_SYSTEM_PBCOOKIENOTE_BUTTON'); ?></button>
-  </div>
-</div>
+  </form>
+</dialog>

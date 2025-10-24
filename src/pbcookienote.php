@@ -133,7 +133,8 @@ class plgSystemPbCookieNote extends CMSPlugin
 
     // basic styles
     $style = '
-        #pb-cookies { position: fixed; z-index: 9999; color: '.$this->cookienote['textcolor'].'; background: '.$this->cookienote['backgroundcolor'].'; }
+        #pb-cookies { position: fixed; z-index: 9999; color: '.$this->cookienote['textcolor'].'; background: '.$this->cookienote['backgroundcolor'].'; width: 100%; padding: 0; border: none; }
+        #pb-cookies:not([open]) { display: none; }
         #pb-cookies a { color: '.$this->cookienote['textcolor'].'; text-decoration: underline; }
         #pb-cookies .pb-text { padding: 1rem; text-align: left; flex: 1; }
         #pb-cookies .pb-dismiss { padding: 1rem; }
@@ -210,13 +211,6 @@ class plgSystemPbCookieNote extends CMSPlugin
             d.setTime(d.getTime() + (365*24*60*60*1000)); /* 365 days */
             var expires = "expires="+ d.toUTCString();
             document.cookie = "'.$cookie.'=true;" + expires + ";path=/";
-
-            if (window.jQuery) { 
-              jQuery("#pb-cookies").fadeOut("slow");
-            }
-            else {
-              document.getElementById("pb-cookies").style.display = "none";
-            }
         }
       ';
     
@@ -224,25 +218,8 @@ class plgSystemPbCookieNote extends CMSPlugin
     if ( $this->cookienote['position'] == 'top' || $this->cookienote['position'] == 'bottom' ) { 
       $script .= '
           window.addEventListener("load", function () {
-            if (window.jQuery) { 
-              var height = jQuery("#pb-cookies").outerHeight();
-              jQuery("body").css("padding-'.$this->cookienote['position'].'", height);
-            }
-            else {
-              var height = document.getElementById("pb-cookies").offsetHeight;
-              document.body.style.padding'.ucfirst($this->cookienote['position']).' = height + "px";
-            }
-
-            document.getElementById("pb-button").onclick = function () {
-              buttonClick();
-
-              if (window.jQuery) {
-                jQuery("body").css("padding-'.$this->cookienote['position'].'", "");
-              }
-              else {
-                document.body.style.removeProperty("padding-'.$this->cookienote['position'].'");
-              }
-            }
+            var height = document.getElementById("pb-cookies").offsetHeight;
+            document.body.style.padding'.ucfirst($this->cookienote['position']).' = height + "px";
           });
         ';
     }
